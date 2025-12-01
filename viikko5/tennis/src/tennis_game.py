@@ -1,4 +1,6 @@
 class TennisGame:
+    SCORE_NAMES = ["Love", "Fifteen", "Thirty", "Forty"]
+
     def __init__(self, player1_name, player2_name):
         self.player1_name = player1_name
         self.player2_name = player2_name
@@ -20,12 +22,9 @@ class TennisGame:
             return self._get_running_score(self.player1_score, self.player2_score)
 
     def _get_even_score(self, score):
-        score_names = {
-            0: "Love-All",
-            1: "Fifteen-All",
-            2: "Thirty-All"
-        }
-        return score_names.get(score, "Deuce")
+        if score < 3:
+            return f"{self.SCORE_NAMES[score]}-All"
+        return "Deuce"
 
     def _get_advantage_or_win(self, player1_score, player2_score):
         minus_result = player1_score - player2_score
@@ -39,10 +38,4 @@ class TennisGame:
             return "Win for player2"
 
     def _get_running_score(self, player1_score, player2_score):
-        score_names = {
-            0: "Love",
-            1: "Fifteen",
-            2: "Thirty",
-            3: "Forty"
-        }
-        return f"{score_names[player1_score]}-{score_names[player2_score]}"
+        return f"{self.SCORE_NAMES[player1_score]}-{self.SCORE_NAMES[player2_score]}"
